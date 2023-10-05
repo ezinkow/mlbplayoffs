@@ -1,5 +1,5 @@
 {
-  "name": "nbaplayoffs2023",
+  "name": "mlbplayoffs2023",
   "version": "1.0.0",
   "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
   "main": "server.js",
@@ -37,10 +37,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ezinkow/nbaplayoffs2023.git"
+    "url": "git+https://github.com/ezinkow/mlbplayoffs.git"
   },
   "bugs": {
-    "url": "https://github.com/ezinkow/nbaplayoffs2023/issues"
+    "url": "https://github.com/ezinkow/mlbplayoffs/issues"
   },
-  "homepage": "https://github.com/ezinkow/nbaplayoffs2023#readme"
+  "homepage": "https://github.com/ezinkow/mlbplayoffs#readme"
 }
