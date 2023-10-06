@@ -218,7 +218,7 @@ export default function PicksRound() {
                         color: 'white',
                         backgroundColor: 'rgb(60, 179, 113, 0.7)'
                     },
-                    icon: '🏀',
+                    icon: '⚾',
                     role: 'status',
                     ariaLive: 'polite',
                 });
