@@ -16,7 +16,7 @@ export default function PicksRound() {
     const [nameToast, setNameToast] = useState('')
     const [currentPick, setCurrentPick] = useState([])
     const [modalIsOpen, setIsOpen] = useState('')
-    const [pointsTotal, setPointsTotal] = useState('')
+    const [pointsTotal, setPointsTotal] = useState('0')
     const [gamesTotal, setGamesTotal] = useState('')
 
     const round = '2'
@@ -339,6 +339,12 @@ export default function PicksRound() {
                                             <option
                                                 key='p10'
                                                 value='10'>10</option>
+                                            <option
+                                                key='p11'
+                                                value='11'>11</option>
+                                            <option
+                                                key='p12'
+                                                value='12'>12</option>
                                         </select>
                                     </td>
                                     <td>
@@ -348,17 +354,14 @@ export default function PicksRound() {
                                                 key=''
                                                 value=''></option>
                                             <option
+                                                key='g3'
+                                                value='3'>3</option>
+                                            <option
                                                 key='g4'
                                                 value='4'>4</option>
                                             <option
                                                 key='g5'
                                                 value='5'>5</option>
-                                            <option
-                                                key='g6'
-                                                value='6'>6</option>
-                                            <option
-                                                key='g7'
-                                                value='7'>7</option>
                                         </select>
                                     </td>
                                 </>
