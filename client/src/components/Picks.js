@@ -253,7 +253,7 @@ export default function PicksRound() {
             </DropdownButton>
             <h4> Name: {name}</h4>
             <h5>Most Recent Pick: {currentPick}</h5>
-            <h5>TOTAL POINTS: {pointsTotal} (must equal 8)</h5>
+            <h5>TOTAL POINTS: {pointsTotal} (MUST EQUAL 32!)</h5>
             <div className="table">
                 <Table striped bordered hover>
                     <thead>
