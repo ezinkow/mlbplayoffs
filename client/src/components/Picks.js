@@ -19,7 +19,7 @@ export default function PicksRound() {
     const [pointsTotal, setPointsTotal] = useState('0')
     const [gamesTotal, setGamesTotal] = useState('')
 
-    const round = '2'
+    const round = '3'
 
     const customStyles = {
         content: {
@@ -253,7 +253,7 @@ export default function PicksRound() {
             </DropdownButton>
             <h4> Name: {name}</h4>
             <h5>Most Recent Pick: {currentPick}</h5>
-            <h5>TOTAL POINTS: {pointsTotal} (MUST EQUAL 32!)</h5>
+            <h5>TOTAL POINTS: {pointsTotal} (MUST EQUAL 16!)</h5>
             <div className="table">
                 <Table striped bordered hover>
                     <thead>
@@ -339,12 +339,6 @@ export default function PicksRound() {
                                             <option
                                                 key='p10'
                                                 value='10'>10</option>
-                                            <option
-                                                key='p11'
-                                                value='11'>11</option>
-                                            <option
-                                                key='p12'
-                                                value='12'>12</option>
                                         </select>
                                     </td>
                                     <td>
@@ -354,14 +348,17 @@ export default function PicksRound() {
                                                 key=''
                                                 value=''></option>
                                             <option
-                                                key='g3'
-                                                value='3'>3</option>
-                                            <option
                                                 key='g4'
                                                 value='4'>4</option>
                                             <option
                                                 key='g5'
                                                 value='5'>5</option>
+                                            <option
+                                                key='g6'
+                                                value='6'>6</option>
+                                            <option
+                                                key='g7'
+                                                value='7'>7</option>
                                         </select>
                                     </td>
                                 </>
