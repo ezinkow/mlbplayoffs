@@ -19,7 +19,7 @@ export default function PicksRound() {
     const [pointsTotal, setPointsTotal] = useState('0')
     const [gamesTotal, setGamesTotal] = useState('')
 
-    const round = '3'
+    const round = '4'
 
     const customStyles = {
         content: {
@@ -253,7 +253,9 @@ export default function PicksRound() {
             </DropdownButton>
             <h4> Name: {name}</h4>
             <h5>Most Recent Pick: {currentPick}</h5>
-            <h5>TOTAL POINTS: {pointsTotal} (MUST EQUAL 16!)</h5>
+            <h5>TOTAL POINTS: {pointsTotal} 
+            {/* (MUST EQUAL 8!) */}
+            </h5>
             <div className="table">
                 <Table striped bordered hover>
                     <thead>
@@ -306,7 +308,7 @@ export default function PicksRound() {
                                     <td>
                                         <select
                                             onChange={() => { handlePointsChange(event, series.id) }}>
-                                            <option
+                                            {/* <option
                                                 key=''
                                                 value=''></option>
                                             <option
@@ -329,16 +331,16 @@ export default function PicksRound() {
                                                 value='6'>6</option>
                                             <option
                                                 key='p7'
-                                                value='7'>7</option>
+                                                value='7'>7</option> */}
                                             <option
                                                 key='p8'
                                                 value='8'>8</option>
-                                            <option
+                                            {/* <option
                                                 key='p9'
                                                 value='9'>9</option>
                                             <option
                                                 key='p10'
-                                                value='10'>10</option>
+                                                value='10'>10</option> */}
                                         </select>
                                     </td>
                                     <td>
