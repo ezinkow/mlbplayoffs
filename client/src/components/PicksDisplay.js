@@ -28,7 +28,7 @@ export default function PicksDisplay() {
                     <thead>
                         <tr>
                             <th key='series id'>Name</th>
-                            <th key='series id'>Series #</th>
+                            <th key='series id'>Series #s</th>
                             <th key='series pick'>Pick</th>
                         </tr>
                     </thead>
@@ -36,7 +36,7 @@ export default function PicksDisplay() {
                         {picks.length > 0 ? picks.map(thisPick =>
                             <tr>
                                 <td key={thisPick.name}>{thisPick.name}</td>
-                                <td key={thisPick.series_round}>{thisPick.series_round}</td>
+                                <td key={thisPick.series_id}>{thisPick.series_id}</td>
                                 <td key={thisPick.pick}>{thisPick.pick}</td>
                             </tr>
                         ) : ""
