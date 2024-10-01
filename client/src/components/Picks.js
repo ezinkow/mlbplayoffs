@@ -12,29 +12,19 @@ export default function PicksRound() {
     const [name, setName] = useState('SELECT YOUR NAME IN DROPDOWN!')
     const [names, setNames] = useState([''])
     const [seriess, setSeries] = useState([])
+    const [seriesValue, setSeriesValue] = useState('')
     const [picks, setPicks] = useState([])
     const [nameToast, setNameToast] = useState('')
     const [currentPick, setCurrentPick] = useState([])
     const [modalIsOpen, setIsOpen] = useState('')
-    const [pointsTotal, setPointsTotal] = useState('0')
+    const [pointsTotal, setPointsTotal] = useState('')
     const [gamesTotal, setGamesTotal] = useState('')
 
-    const round = '4'
 
-    const customStyles = {
-        content: {
-            top: '50%',
-            left: '50%',
-            right: 'auto',
-            bottom: 'auto',
-            marginRight: '-50%',
-            transform: 'translate(-50%, -50%)',
-        },
-    };
     useEffect(() => {
         async function fetchSeries() {
             try {
-                const response = await axios(`api/series/${round}`)
+                const response = await axios('api/series/y')
                 setSeries(response.data)
             } catch (e) {
                 console.log(e)
@@ -55,6 +45,18 @@ export default function PicksRound() {
             }
         }
         fetchNames()
+    }, [])
+
+    useEffect(() => {
+        async function fetchSeriesValue() {
+            try {
+                const response = await axios('api/roundvalues/y')
+                setSeriesValue(response.data[0].points)
+            } catch (e) {
+                console.log(e)
+            }
+        }
+        fetchSeriesValue()
     }, [])
 
     // Set Name
@@ -100,6 +102,7 @@ export default function PicksRound() {
             activePicks.push(currentPickObj)
             setPicks(activePicks);
         }
+        console.log(picks)
     }
 
     function pointsCounter() {
@@ -165,9 +168,11 @@ export default function PicksRound() {
             if (findCurrentPick === undefined) {
                 activePicks.push(currentPickObj)
                 setPicks(activePicks)
+                console.log(activePicks)
             } else {
                 findCurrentPick.points = currentPoints
                 setPicks(activePicks)
+                console.log(activePicks)
             }
         } else {
             toast.error('Please select team first, then RESELECT point value',
@@ -184,6 +189,7 @@ export default function PicksRound() {
                 });
         }
         pointsCounter()
+        console.log(picks)
     }
 
     // Send name and picks to database and reset fields
@@ -218,7 +224,7 @@ export default function PicksRound() {
                         color: 'white',
                         backgroundColor: 'rgb(60, 179, 113, 0.7)'
                     },
-                    icon: '⚾',
+                    icon: '🏀',
                     role: 'status',
                     ariaLive: 'polite',
                 });
@@ -253,9 +259,7 @@ export default function PicksRound() {
             </DropdownButton>
             <h4> Name: {name}</h4>
             <h5>Most Recent Pick: {currentPick}</h5>
-            <h5>TOTAL POINTS: {pointsTotal} 
-            {/* (MUST EQUAL 8!) */}
-            </h5>
+            <h5>TOTAL POINTS: {pointsTotal} (must equal {seriesValue})</h5>
             <div className="table">
                 <Table striped bordered hover>
                     <thead>
@@ -308,7 +312,7 @@ export default function PicksRound() {
                                     <td>
                                         <select
                                             onChange={() => { handlePointsChange(event, series.id) }}>
-                                            {/* <option
+                                            <option
                                                 key=''
                                                 value=''></option>
                                             <option
@@ -331,16 +335,16 @@ export default function PicksRound() {
                                                 value='6'>6</option>
                                             <option
                                                 key='p7'
-                                                value='7'>7</option> */}
+                                                value='7'>7</option>
                                             <option
                                                 key='p8'
                                                 value='8'>8</option>
-                                            {/* <option
+                                            <option
                                                 key='p9'
                                                 value='9'>9</option>
                                             <option
                                                 key='p10'
-                                                value='10'>10</option> */}
+                                                value='10'>10</option>
                                         </select>
                                     </td>
                                     <td>
@@ -374,7 +378,7 @@ export default function PicksRound() {
             </div>
             <>
                 <h3>Picks (selected {picks.length} out of {seriess.length}):</h3>
-                <h5>Note: "games" might not show up here but it's getting logged. If you're nervous about your picks, press f12 and you'll see your picks in the console dev tools</h5>
+                <h5>Note: "games" might not show up here but it's getting logged. If you're nervous about your picks, press f12 and you'll see your picks in the dev tools</h5>
                 <div className="table picksTable">
                     <Table striped bordered hover size="sm">
                         <thead>

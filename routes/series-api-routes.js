@@ -13,11 +13,25 @@ module.exports = function (app) {
     });
 
     // Find series where series_round = __
-    app.get('/api/series/:round', function (req, res) {
+    // app.get('/api/series/:round', function (req, res) {
+    //     console.log('req params', req.params)
+    //     Series.findAll({
+    //         where: {
+    //             series_round: req.params.round
+    //         }
+    //     })
+    //         .then(function (dbseries) {
+    //             res.json(dbseries)
+    //         })
+    //         console.log(req.params)
+    // });
+
+    // Get series status
+    app.get('/api/series/:status', function (req, res) {
         console.log('req params', req.params)
         Series.findAll({
             where: {
-                series_round: req.params.round
+                status: req.params.status
             }
         })
             .then(function (dbseries) {

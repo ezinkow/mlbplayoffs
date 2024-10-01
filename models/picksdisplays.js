@@ -1,10 +1,22 @@
 module.exports = function (sequelize, DataTypes) {
-    const Series = sequelize.define("Series", {
-        series_round: {
+    const Picksdisplays = sequelize.define("Picksdisplays", {
+        name: {
             type: DataTypes.TEXT,
-            allowNull: false,
+            allowNull: false
         },
-        lower_seed_seed: {
+        series_id: {
+            type: DataTypes.TEXT,
+            allowNull: true,
+        },
+        pick: {
+            type: DataTypes.TEXT,
+            allowNull: true,
+        },
+        points: {
+            type: DataTypes.TEXT,
+            allowNull: true,
+        },
+        series_date: {
             type: DataTypes.TEXT,
             allowNull: true,
         },
@@ -12,23 +24,11 @@ module.exports = function (sequelize, DataTypes) {
             type: DataTypes.TEXT,
             allowNull: true,
         },
-        higher_seed_seed: {
-            type: DataTypes.TEXT,
-            allowNull: true,
-        },
         higher_seed: {
-            type: DataTypes.TEXT,
-            allowNull: true,
-        },
-        winner: {
-            type: DataTypes.TEXT,
-            allowNull: true,
-        },
-        status: {
             type: DataTypes.TEXT,
             allowNull: true,
         }
     });
 
-    return Series;
+    return Picksdisplays;
 };
