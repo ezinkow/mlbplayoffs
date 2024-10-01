@@ -354,9 +354,15 @@ export default function PicksRound() {
                                                 key=''
                                                 value=''></option>
                                             <option
-                                                key='g4'
-                                                value='4'>4</option>
+                                                key='g2'
+                                                value='2'>2</option>
                                             <option
+                                                key='g3'
+                                                value='3'>3</option>
+                                            {/* <option
+                                                key='g4'
+                                                value='4'>4</option> */}
+                                            {/* <option
                                                 key='g5'
                                                 value='5'>5</option>
                                             <option
@@ -364,7 +370,7 @@ export default function PicksRound() {
                                                 value='6'>6</option>
                                             <option
                                                 key='g7'
-                                                value='7'>7</option>
+                                                value='7'>7</option> */}
                                         </select>
                                     </td>
                                 </>
