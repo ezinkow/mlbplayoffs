@@ -103,6 +103,7 @@ export default function PicksRound() {
             setPicks(activePicks);
         }
         console.log(picks)
+        
     }
 
     function pointsCounter() {
@@ -353,13 +354,13 @@ export default function PicksRound() {
                                             <option
                                                 key=''
                                                 value=''></option>
-                                            {/* <option
-                                                key='g2'
-                                                value='2'>2</option> */}
-                                            {/* <option
-                                                key='g3'
-                                                value='3'>3</option> */}
                                             <option
+                                                key='g2'
+                                                value='2'>2</option>
+                                            <option
+                                                key='g3'
+                                                value='3'>3</option>
+                                            {/* <option
                                                 key='g4'
                                                 value='4'>4</option>
                                             <option
@@ -370,7 +371,7 @@ export default function PicksRound() {
                                                 value='6'>6</option>
                                             <option
                                                 key='g7'
-                                                value='7'>7</option>
+                                                value='7'>7</option> */}
                                         </select>
                                     </td>
                                 </>

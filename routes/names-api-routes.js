@@ -27,7 +27,11 @@ module.exports = function (app) {
     //Submit name
     app.post("/api/names", function (req, res) {
         Names.create({
-            name: req.body.name
+            real_name: req.body.real_name,
+            name: req.body.name,
+            email_address: req.body.email_address,
+            email_opt_in: req.body.email_opt_in,
+            paid_commitment: req.body.paid
         })
             .then(function (dbpicks) {
                 res.json(dbpicks)
