@@ -10,6 +10,7 @@ export default function NameSubmit() {
     const [real_name, setReal_name] = useState('')
     const [name, setName] = useState('')
     const [email_address, setEmail_address] = useState('')
+    const [phone, setPhone] = useState('')
     const [email_opt_in, setEmail_opt_in] = useState(false)
     const [paid, setPaid] = useState(false)
     const [modalIsOpen, setIsOpen] = useState('')
@@ -25,6 +26,10 @@ export default function NameSubmit() {
     const handleEmail_addressChange = event => {
         setEmail_address(event.target.value)
         console.log(email_address)
+    }
+    const handlePhoneChange = event => {
+        setPhone(event.target.value)
+        console.log(phone)
     }
     const handleEmail_opt_inChange = event => {
         setEmail_opt_in(event.target.checked)
@@ -43,6 +48,7 @@ export default function NameSubmit() {
             real_name,
             name,
             email_address,
+            phone,
             email_opt_in,
             paid
         })
@@ -76,11 +82,15 @@ export default function NameSubmit() {
                     </Form.Group>
                     <Form.Group onChange={handleNameChange} type="text" id="name" value={name} className="mb-3" controlId="formBasicName">
                         <Form.Label>Username:</Form.Label>
-                        <Form.Control size="lg" type="name" placeholder="Enter Name You'll Select All Week" />
+                        <Form.Control size="lg" type="name" placeholder="Enter Name You'll Select All Playoffs" />
                     </Form.Group>
                     <Form.Group onChange={handleEmail_addressChange} type="text" id="email_address" value={email_address} className="mb-3" controlId="formPlaintextEmail">
                         <Form.Label>Email address</Form.Label>
                         <Form.Control size="lg" type="email" placeholder="Enter email" />
+                    </Form.Group>
+                    <Form.Group onChange={handlePhoneChange} type="text" id="phone" value={phone} className="mb-3" controlId="formBasicPhone">
+                        <Form.Label>Phone Number</Form.Label>
+                        <Form.Control size="lg" type="phone" placeholder="Phone Number" />
                     </Form.Group>
                     <Form.Group onChange={handleEmail_opt_inChange} className="mb-3" controlId="formBasicCheckbox">
                         <Form.Check type="checkbox" label="Sign me up for emails!" />

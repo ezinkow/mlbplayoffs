@@ -12,6 +12,10 @@ module.exports = function (sequelize, DataTypes) {
             type: DataTypes.TEXT,
             allowNull: true
         },
+        phone: {
+            type: DataTypes.TEXT,
+            allowNull: true
+        },
         email_opt_in: {
             type: DataTypes.TEXT,
             allowNull: true

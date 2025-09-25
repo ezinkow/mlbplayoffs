@@ -30,6 +30,7 @@ module.exports = function (app) {
             real_name: req.body.real_name,
             name: req.body.name,
             email_address: req.body.email_address,
+            phone: req.body.phone,
             email_opt_in: req.body.email_opt_in,
             paid_commitment: req.body.paid
         })
