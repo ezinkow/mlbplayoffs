@@ -11,6 +11,7 @@ import Picks from './pages/Picks';
 import PicksDisplay from './pages/PicksDisplay';
 import Standings from './pages/Standings';
 import SignUp from './pages/SignUp';
+import PrettyPicks from './pages/PrettyPicks';
 
 export default function App() {
 
@@ -21,6 +22,7 @@ export default function App() {
         <Route path="/picks" element={<Picks />} />
         <Route path="/picksdisplay" element={<PicksDisplay />} />
         <Route path="/standings" element={<Standings />} />
+        <Route path="/prettypicks" element={<PrettyPicks />} />
         <Route path="/" element={<Home />} />
       </Routes>
     </Router>
