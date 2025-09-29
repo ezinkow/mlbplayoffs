@@ -8,24 +8,42 @@ import {
 export default function Navbar() {
 
     return (
-        <div className="header" style={{ backgroundImage: `url(${banner})`, backgroundRepeat: 'no-repeat', backgroundSize: 'cover' }}>
-            <div className="navbar">
-                <div className='container navitext'>
-                    <div className="col-1 navtext">
-                        <Link to='/'><h5>Home</h5></Link>
-                    </div>
-                    <div className="col-1 navtext">
-                        <Link to='/picks'><h5>Picks</h5></Link>
-                    </div>
-                    <div className="col-1 navtext">
-                        <Link to='/standings'><h5>Standings</h5></Link>
-                    </div>
-                    <div className="col-1 navtext">
-                        <Link to='/picksdisplay'><h5>Group Picks</h5></Link>
-                    </div>
+        <header className="header navbar" style={{ backgroundImage: `url(${banner})`, backgroundRepeat: 'no-repeat', backgroundSize: 'cover' }}>
+            <button class="hamburger" onclick="this.classList.toggle('active');document.querySelector('.header nav').classList.toggle('show');">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <nav>
+                <div className='navitext'>
+                    <a className="col-1 navtext">
+                        <Link to='/'>Home</Link>
+                    </a>
+                    <a className="col-1 navtext">
+                        <Link to='/picks'>Picks</Link>
+                    </a>
+                    <a className="col-1 navtext">
+                        <Link to='/standings'>Standings</Link>
+                    </a>
+                    <a className="col-1 navtext">
+                        <Link to='/picksdisplay'>Group Picks</Link>
+                    </a>
                 </div>
-                <br />
-            </div>
-        </div>
+            </nav>
+            <br />
+        </header >
+        // <header class="header">
+        //     <button class="hamburger" onclick="document.querySelector('.header nav').classList.toggle('show')">
+        // <span></span>
+        // <span></span>
+        // <span></span>
+        //     </button>
+        //     <nav>
+        // <a href="#">Home</a>
+        // <a href="#">Submit Picks</a>
+        // <a href="#">Leaderboard</a>
+        // <a href="#">Stats</a>
+        //     </nav>
+        // </header>
     )
 }

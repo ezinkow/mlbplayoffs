@@ -12,30 +12,71 @@ body {
   line-height: 1.6;
 }
 
-/* Header / Navbar */
+/* Base Header */
 .header {
   position: sticky;
   top: 0;
   width: 100%;
-  height: 120px;
+  height: 140px;
   display: flex;
-  justify-content: center;   /* centers nav horizontally */
-  align-items: center;       /* centers nav vertically */
-  padding: 0 2rem;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  justify-content: center;
+  /* centers nav */
+  align-items: flex-end;
+  /* pushes nav lower */
+  padding-bottom: 20px;
+  /* background: darkgreen url("/path/to/your/header-image.jpg") center/cover no-repeat; */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
   z-index: 1000;
 }
 
-.header a {
+/* Nav container */
+.header nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 0.75rem 2rem;
+  border-radius: 50px;
+  backdrop-filter: blur(6px);
+  transition: all 0.3s ease;
+}
+
+/* Nav links */
+.header nav a {
   text-decoration: none;
   color: #fff;
-  font-weight: 500;
-  margin: 0 1rem;
+  font-weight: 600;
+  font-size: 1.1rem;
   transition: color 0.3s ease;
 }
 
-.header a:hover {
+.header nav a:hover {
   color: #ffd966;
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  .header {
+    height: auto;
+    padding: 0.5rem;
+    /* smaller padding on mobile */
+  }
+
+  .header nav {
+    flex-direction: column;
+    gap: 0.5rem;
+    /* smaller gap between links */
+    border-radius: 12px;
+    width: 100%;
+    padding: 0.5rem 1rem;
+    /* reduced nav padding */
+  }
+
+  .header nav a {
+    font-size: 1rem;
+    /* slightly smaller text for mobile */
+  }
 }
 
 /* Dropdown */
@@ -66,28 +107,17 @@ body {
 
 /* Table styling */
 .picksTable {
-  width: 90%;
-  max-width: 900px;
-  margin: 2rem auto;
-  border-collapse: collapse;
-  background: #fff;
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  overflow-x: auto;
+  /* allows horizontal scroll on small screens */
+  -webkit-overflow-scrolling: touch;
+  /* smooth scrolling on iOS */
 }
 
-.picksTable th,
-.picksTable td {
-  padding: 1rem;
-  text-align: left;
-  border-bottom: 1px solid #eee;
-}
-
-.picksTable th {
-  background: #f4f4f4;
-  font-weight: 600;
-}
-
-.picksTable tr:hover {
-  background: #fafafa;
+.table {
+  width: 100%;
+  overflow-x: auto;
+  /* allows horizontal scroll on small screens */
+  -webkit-overflow-scrolling: touch;
+  /* smooth scrolling on iOS */
 }
