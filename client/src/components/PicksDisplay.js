@@ -64,7 +64,7 @@ export default function PicksDisplay() {
 
             return (
               <tr key={user.id}>
-                <td>{user.name}</td>
+                <td>{user.name} ({user.points})</td>
                 {sortedSeriesIds.map((seriesId) => {
                   const idx = userSeriesIds.indexOf(seriesId);
                   return (
