@@ -287,7 +287,6 @@ export default function PicksRound() {
                                     <td>
                                         <select
                                             key={series.id}
-                                            value={picks.find(p => p.series_id === series.id)?.pick || ""}
                                             onChange={() => { handleTeamChange(event, series.id, series.lower_seed_seed, series.lower_seed, series.higher_seed_seed, series.higher_seed, series.series_round) }}
                                         >
                                             <option
