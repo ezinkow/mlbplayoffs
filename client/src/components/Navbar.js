@@ -9,7 +9,7 @@ export default function Navbar() {
 
     return (
         <header className="header navbar" style={{ backgroundImage: `url(${banner})`, backgroundRepeat: 'no-repeat', backgroundSize: 'cover' }}>
-            <button class="hamburger" onclick="this.classList.toggle('active');document.querySelector('.header nav').classList.toggle('show');">
+            <button className="hamburger" onClick="this.classList.toggle('active');document.querySelector('.header nav').classList.toggle('show');">
                 <span></span>
                 <span></span>
                 <span></span>
@@ -32,18 +32,5 @@ export default function Navbar() {
             </nav>
             <br />
         </header >
-        // <header class="header">
-        //     <button class="hamburger" onclick="document.querySelector('.header nav').classList.toggle('show')">
-        // <span></span>
-        // <span></span>
-        // <span></span>
-        //     </button>
-        //     <nav>
-        // <a href="#">Home</a>
-        // <a href="#">Submit Picks</a>
-        // <a href="#">Leaderboard</a>
-        // <a href="#">Stats</a>
-        //     </nav>
-        // </header>
     )
 }

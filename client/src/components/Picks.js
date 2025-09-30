@@ -9,234 +9,237 @@ import Table from 'react-bootstrap/Table';
 import Steps from './Steps'
 
 export default function PicksRound() {
-    const [name, setName] = useState('SELECT YOUR NAME IN DROPDOWN!')
-    const [names, setNames] = useState([''])
-    const [seriess, setSeries] = useState([])
-    const [seriesValue, setSeriesValue] = useState('')
-    const [picks, setPicks] = useState([])
-    const [nameToast, setNameToast] = useState('')
-    const [currentPick, setCurrentPick] = useState([])
-    const [modalIsOpen, setIsOpen] = useState('')
-    const [pointsTotal, setPointsTotal] = useState('')
-    const [gamesTotal, setGamesTotal] = useState('')
+    // State
+    const [name, setName] = useState("SELECT YOUR NAME IN DROPDOWN!");
+    const [names, setNames] = useState([]);
+    const [seriess, setSeries] = useState([]);
+    const [seriesValue, setSeriesValue] = useState("");
+    const [picks, setPicks] = useState([]);
+    const [nameToast, setNameToast] = useState("");
+    const [currentPick, setCurrentPick] = useState("");
+    const [modalIsOpen, setIsOpen] = useState(false);
+    const [pointsTotal, setPointsTotal] = useState(0);
+    const [gamesTotal, setGamesTotal] = useState("");
 
-
+    // Fetch series
     useEffect(() => {
         async function fetchSeries() {
             try {
-                const response = await axios('api/series/y')
-                setSeries(response.data)
+                const response = await axios("api/series/y");
+                setSeries(response.data);
             } catch (e) {
-                console.log(e)
+                console.log(e);
             }
         }
-        fetchSeries()
-    }, [])
+        fetchSeries();
+    }, []);
 
+    // Fetch names
     useEffect(() => {
         async function fetchNames() {
             try {
-                const response = await axios('api/names')
+                const response = await axios("api/names");
                 const sortedList = response.data.sort((a, b) =>
-                    a.name.localeCompare(b.name));
-                setNames(sortedList)
+                    a.name.localeCompare(b.name)
+                );
+                setNames(sortedList);
             } catch (e) {
-                console.log(e)
+                console.log(e);
             }
         }
-        fetchNames()
-    }, [])
+        fetchNames();
+    }, []);
 
+    // Fetch series value
     useEffect(() => {
         async function fetchSeriesValue() {
             try {
-                const response = await axios('api/roundvalues/y')
-                setSeriesValue(response.data[0].points)
+                const response = await axios("api/roundvalues/y");
+                setSeriesValue(response.data[0].points);
             } catch (e) {
-                console.log(e)
+                console.log(e);
             }
         }
-        fetchSeriesValue()
-    }, [])
+        fetchSeriesValue();
+    }, []);
 
     // Set Name
-    const handleNameSelect = event => {
+    const handleNameSelect = (event) => {
         setName(event);
         setNameToast(event);
     };
 
-    const namesList =
-        names.map(name =>
-            <Dropdown.Item
-                eventKey={name.name}
-                key={name.name}
-            >
-                {name.name}
-            </Dropdown.Item>
-        )
+    const namesList = names.map((n) => (
+        <Dropdown.Item eventKey={n.name} key={n.name}>
+            {n.name}
+        </Dropdown.Item>
+    ));
 
-    // Set Picks
-    const handleTeamChange = (event, id, lower_seed_seed, lower_seed, higher_seed_seed, higher_seed, series_round) => {
-        let activePicks = picks
-        const currentPick = event.target.value
-        const currentPickObj = {
-            series_id: id,
-            pick: currentPick,
+    // ---------- Helpers ----------
+
+    // safely update or insert a pick
+    const upsertPick = (series_id, updates) => {
+        setPicks((prev) => {
+            const existing = prev.find((p) => p.series_id === series_id);
+            if (existing) {
+                return prev.map((p) =>
+                    p.series_id === series_id ? { ...p, ...updates } : p
+                );
+            } else {
+                return [...prev, { series_id, ...updates }];
+            }
+        });
+    };
+
+    // Recalculate total points
+    const pointsCounter = (picksArr) => {
+        if (picksArr.length > 0) {
+            const sum = picksArr.reduce(
+                (acc, p) => acc + (parseInt(p.points) || 0),
+                0
+            );
+            setPointsTotal(sum);
+        } else {
+            setPointsTotal(0);
+        }
+    };
+
+    // ---------- Handlers ----------
+
+    const handleTeamChange = (
+        event,
+        id,
+        lower_seed_seed,
+        lower_seed,
+        higher_seed_seed,
+        higher_seed,
+        series_round
+    ) => {
+        const pick = event.target.value;
+        setCurrentPick(pick);
+        upsertPick(id, {
+            pick,
             lower_seed_seed,
             lower_seed,
             higher_seed_seed,
             higher_seed,
-            series_round
-        }
-        setCurrentPick(currentPick)
-        setPicks(prev =>
-            prev.some(p => p.series_id === id)
-                ? prev.map(p => (p.series_id === id ? { ...p, ...currentPickObj } : p))
-                : [...prev, currentPickObj]
-        );
-        console.log(picks)
+            series_round,
+        });
     };
 
-    function pointsCounter() {
-        if (picks.length > 0) {
-            const pointValues = picks.map(point =>
-                parseInt(point.points))
-            let sum = pointValues.reduce(function (a, b) {
-                return a + b;
-            });
-            setPointsTotal(sum)
-        }
-    }
-
     const handleGamesChange = (event, id) => {
-        //get picks
-        let activePicks = picks
-        //get point value
-        const currentGames = event.target.value
-        //check if series.id is there
-        const currentPickObj = {
-            series_id: id,
-            games: currentGames
+        const currentGames = event.target.value;
+        if (!picks.find((p) => p.series_id === id)) {
+            return toast.error("Please select team first, then RESELECT point value", {
+                duration: 5000,
+                position: "top-center",
+                style: {
+                    border: "2px solid #713200",
+                    padding: "20px",
+                    marginTop: "100px",
+                    backgroundColor: "rgb(255,0,0)",
+                    color: "rgb(255,255,255)",
+                },
+            });
         }
-        if (activePicks.length > 0) {
-            let findCurrentPick = activePicks.find(o => o.series_id === id)
-            if (findCurrentPick === undefined) {
-                activePicks.push(currentPickObj)
-                setPicks(activePicks)
-            } else {
-                findCurrentPick.games = currentGames
-                setPicks(activePicks)
-            }
-        } else {
-            toast.error('Please select team first, then RESELECT point value',
-                {
-                    duration: 5000,
-                    position: 'top-center',
-                    style: {
-                        border: '2px solid #713200',
-                        padding: '20px',
-                        marginTop: '100px',
-                        backgroundColor: 'rgb(255,0,0)',
-                        color: 'rgb(255,255,255)'
-                    },
-                });
-        }
-        setGamesTotal(currentGames)
-        console.log(picks)
-    }
+        upsertPick(id, { games: currentGames });
+        setGamesTotal(currentGames);
+    };
 
     const handlePointsChange = (event, id) => {
-        //get picks
-        let activePicks = picks
-        //get point value
-        const currentPoints = event.target.value
-        //check if series.id is there
-        const currentPickObj = {
-            series_id: id,
-            points: currentPoints
+        const currentPoints = event.target.value;
+        if (!picks.find((p) => p.series_id === id)) {
+            return toast.error("Please select team first, then RESELECT point value", {
+                duration: 5000,
+                position: "top-center",
+                style: {
+                    border: "2px solid #713200",
+                    padding: "20px",
+                    marginTop: "100px",
+                    backgroundColor: "rgb(255,0,0)",
+                    color: "rgb(255,255,255)",
+                },
+            });
         }
-        if (activePicks.length > 0) {
-            let findCurrentPick = activePicks.find(o => o.series_id === id)
-            if (findCurrentPick === undefined) {
-                activePicks.push(currentPickObj)
-                setPicks(activePicks)
-                console.log(activePicks)
-            } else {
-                findCurrentPick.points = currentPoints
-                setPicks(activePicks)
-                console.log(activePicks)
-            }
-        } else {
-            toast.error('Please select team first, then RESELECT point value',
-                {
-                    duration: 5000,
-                    position: 'top-center',
-                    style: {
-                        border: '2px solid #713200',
-                        padding: '20px',
-                        marginTop: '100px',
-                        backgroundColor: 'rgb(255,0,0)',
-                        color: 'rgb(255,255,255)'
-                    },
-                });
-        }
-        pointsCounter()
-        console.log(picks)
-    }
+        upsertPick(id, { points: currentPoints });
+        // recalc total points using new picks state
+        setPicks((prev) => {
+            const updated = prev.map((p) =>
+                p.series_id === id ? { ...p, points: currentPoints } : p
+            );
+            pointsCounter(updated);
+            return updated;
+        });
+    };
 
     // Send name and picks to database and reset fields
-    function handleSubmitClick(event) {
+    async function handleSubmitClick(event) {
+        event.preventDefault();
 
-        if (name != 'SELECT YOUR NAME IN DROPDOWN!') {
-            event.preventDefault()
-            setIsOpen(true);
-            for (let i = 0; i < picks.length; i++) {
-                const series_id = picks[i].series_id;
-                const pick = picks[i].pick
-                const series_round = picks[i].series_round
-                const points = picks[i].points
-                const games = picks[i].games
-                axios.post('api/picks', {
+        if (name === "SELECT YOUR NAME IN DROPDOWN!") {
+            return toast.error("Please select name in dropdown!", {
+                duration: 5000,
+                position: "top-center",
+                style: {
+                    border: "2px solid #713200",
+                    padding: "20px",
+                    marginTop: "100px",
+                    backgroundColor: "rgb(255,0,0)",
+                    color: "rgb(255,255,255)",
+                },
+            });
+        }
+
+        setIsOpen(true);
+
+        try {
+            // loop through picks and update each one
+            for (const p of picks) {
+                const { series_id, pick, series_round, points, games } = p;
+                await axios.put("api/picks", {
                     name,
                     series_id,
                     pick,
                     series_round,
                     points,
-                    games
-                })
+                    games,
+                });
             }
-            toast.success(`Thanks, ${nameToast}, picks submitted.`,
-                {
-                    duration: 10001,
-                    position: 'top-center',
-                    style: {
-                        border: '2px solid #713200',
-                        padding: '20px',
-                        marginTop: '100px',
-                        color: 'white',
-                        backgroundColor: 'rgb(60, 179, 113, 0.7)'
-                    },
-                    icon: '🏀',
-                    role: 'status',
-                    ariaLive: 'polite',
-                });
-            setName("")
-            setPicks("")
-        } else {
-            toast.error('Please select name in dropdown!',
-                {
-                    duration: 5000,
-                    position: 'top-center',
-                    style: {
-                        border: '2px solid #713200',
-                        padding: '20px',
-                        marginTop: '100px',
-                        backgroundColor: 'rgb(255,0,0)',
-                        color: 'rgb(255,255,255)'
-                    },
-                });
-        }
 
+            toast.success(`Thanks, ${nameToast}, picks submitted.`, {
+                duration: 10001,
+                position: "top-center",
+                style: {
+                    border: "2px solid #713200",
+                    padding: "20px",
+                    marginTop: "100px",
+                    color: "white",
+                    backgroundColor: "rgb(60, 179, 113, 0.7)",
+                },
+                icon: "🏀",
+                role: "status",
+                ariaLive: "polite",
+            });
+
+            // reset state
+            setName("");
+            setPicks([]);
+            setPointsTotal(0);
+            setGamesTotal("");
+        } catch (err) {
+            console.error(err);
+            toast.error("Error submitting picks.", {
+                duration: 5000,
+                position: "top-center",
+                style: {
+                    border: "2px solid #713200",
+                    padding: "20px",
+                    marginTop: "100px",
+                    backgroundColor: "rgb(255,0,0)",
+                    color: "white",
+                },
+            });
+        }
     }
 
     return (
@@ -371,8 +374,8 @@ export default function PicksRound() {
                     </tbody>
                 </Table>
 
+                <Button onClick={handleSubmitClick}>Submit</Button>
             </div>
-            <Button onClick={handleSubmitClick}>Submit</Button>
             <>
                 <h3>Picks (selected {picks.length} out of {seriess.length}):</h3>
                 <h5>Note: "games" might not show up here but it's getting logged. If you're nervous about your picks, press f12 and you'll see your picks in the dev tools</h5>

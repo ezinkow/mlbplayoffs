@@ -27,6 +27,21 @@ module.exports = function (app) {
             })
     });
 
+    // Post updated picks to picks table
+    app.put("/api/picks", function (req, res) {
+        Picks.create({
+            name: req.body.name,
+            series_id: req.body.series_id,
+            pick: req.body.pick,
+            series_round: req.body.series_round,
+            points: req.body.points,
+            games: req.body.games
+        })
+            .then(function (dbpicks) {
+                res.json(dbpicks)
+            })
+    });
+
     // Find picks where round = __
     app.get('/api/picks/:make_visible', function (req, res) {
         console.log('req params', req.params)
