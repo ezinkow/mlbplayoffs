@@ -89,22 +89,13 @@ export default function PicksRound() {
             series_round
         }
         setCurrentPick(currentPick)
-        if (activePicks.length > 0) {
-            let findCurrentPick = activePicks.find(o => o.series_id === id)
-            if (findCurrentPick === undefined) {
-                activePicks.push(currentPickObj)
-                setPicks(activePicks)
-            } else {
-                findCurrentPick.pick = currentPick
-                setPicks(activePicks)
-            }
-        } else {
-            activePicks.push(currentPickObj)
-            setPicks(activePicks);
-        }
+        setPicks(prev =>
+            prev.some(p => p.series_id === id)
+                ? prev.map(p => (p.series_id === id ? { ...p, ...currentPickObj } : p))
+                : [...prev, currentPickObj]
+        );
         console.log(picks)
-        
-    }
+    };
 
     function pointsCounter() {
         if (picks.length > 0) {
@@ -380,8 +371,8 @@ export default function PicksRound() {
                     </tbody>
                 </Table>
 
-                <Button onClick={handleSubmitClick}>Submit</Button>
             </div>
+            <Button onClick={handleSubmitClick}>Submit</Button>
             <>
                 <h3>Picks (selected {picks.length} out of {seriess.length}):</h3>
                 <h5>Note: "games" might not show up here but it's getting logged. If you're nervous about your picks, press f12 and you'll see your picks in the dev tools</h5>
