@@ -374,8 +374,8 @@ export default function PicksRound() {
                     </tbody>
                 </Table>
 
-                <Button onClick={handleSubmitClick}>Submit</Button>
             </div>
+            <Button onClick={handleSubmitClick}>Submit</Button>
             <>
                 <h3>Picks (selected {picks.length} out of {seriess.length}):</h3>
                 <h5>Note: "games" might not show up here but it's getting logged. If you're nervous about your picks, press f12 and you'll see your picks in the dev tools</h5>
