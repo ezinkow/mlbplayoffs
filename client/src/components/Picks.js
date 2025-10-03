@@ -344,10 +344,10 @@ export default function PicksRound() {
                                     <td>
                                         <select
                                             onChange={() => { handleGamesChange(event, series.id) }}>
-                                            {/* <option
+                                            <option
                                                 key=''
                                                 value=''></option>
-                                            <option
+                                            {/* <option
                                                 key='g2'
                                                 value='2'>2</option> */}
                                             <option
