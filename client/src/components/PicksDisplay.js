@@ -13,12 +13,14 @@ export default function PicksDisplay() {
         const response = await axios.get("api/picksdisplay");
         const data = response.data.sort((a, b) => b.points - a.points); // sort by points descending
         setPicks(data);
-      } catch (e) {
+        console.log("Fetched picks:", picks);
+    } catch (e) {
         console.error(e);
-      }
     }
-    fetchPicks();
-  }, []);
+}
+fetchPicks();
+}, []);
+console.log("Fetched picks:", picks);
 
   // Fetch series info
   useEffect(() => {
