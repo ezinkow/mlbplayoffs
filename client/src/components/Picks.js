@@ -253,8 +253,7 @@ export default function PicksRound() {
                 key='dropdown'>{namesList}
             </DropdownButton>
             <h4> Name: {name}</h4>
-            <h5>Most Recent Pick: {currentPick}</h5>
-            <h5>TOTAL POINTS: {pointsTotal} (must equal {seriesValue})</h5>
+            <h5>TOTAL POINTS: {pointsTotal} <h4>(must equal {seriesValue})</h4></h5>
             <div className="table">
                 <Table striped bordered hover>
                     <thead>
