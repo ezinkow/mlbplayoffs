@@ -37,6 +37,7 @@ export default function PicksDisplay() {
         const sorted = res.data.sort((a, b) => b.points - a.points);
         setPicks(sorted);
         console.log("Fetched picks:", sorted);
+        console.log("Fetched series full:", res.data);
       } catch (err) {
         console.error("Error fetching picks:", err);
       }
