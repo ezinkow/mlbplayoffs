@@ -69,7 +69,6 @@ export default function PicksDisplay() {
                         userSeriesIds.forEach((sid, i) => {
                             pickMap[String(sid)] = pickItems[i];
                         });
-
                         return (
                             <tr key={user.id}>
                                 <td>{user.name} ({user.points})</td>
