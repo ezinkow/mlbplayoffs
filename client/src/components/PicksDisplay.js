@@ -38,6 +38,12 @@ export default function PicksDisplay() {
     // Helper: parse pick string into array
     const parsePickString = (pickStr) => (pickStr ? pickStr.split(",") : []);
 
+    const formatPick = (pickStr) => {
+        if (!pickStr) return "";
+        const [team, points, games] = pickStr.split("|");
+        return `${team} | ${points} | ${games}`;
+      };
+
     // Helper: build a map of series_id -> header text
     const seriesHeaderMap = series.reduce((acc, s) => {
         acc[String(s.id)] = `(${s.id}) (${s.lower_seed_seed}) ${s.lower_seed} vs (${s.higher_seed_seed}) ${s.higher_seed}`;
@@ -45,7 +51,7 @@ export default function PicksDisplay() {
     }, {});
 
     // Sorted series IDs for consistent column order
-    const sortedSeriesIds = Object.keys(seriesHeaderMap).sort((a, b) => a - b);
+    const sortedSeries = [...series].sort((a, b) => a.id - b.id);
 
     return (
         <div className="table">
@@ -54,8 +60,10 @@ export default function PicksDisplay() {
                 <thead>
                     <tr>
                         <th>Name</th>
-                        {sortedSeriesIds.map((seriesId) => (
-                            <th key={seriesId}>{seriesHeaderMap[seriesId]}</th>
+                        {sortedSeries.map((s) => (
+                            <th key={s.id}>
+                                ({s.id}) ({s.lower_seed_seed}) {s.lower_seed} vs ({s.higher_seed_seed}) {s.higher_seed}
+                            </th>
                         ))}
                     </tr>
                 </thead>
@@ -69,11 +77,12 @@ export default function PicksDisplay() {
                         userSeriesIds.forEach((sid, i) => {
                             pickMap[String(sid)] = pickItems[i];
                         });
+
                         return (
                             <tr key={user.id}>
                                 <td>{user.name} ({user.points})</td>
-                                {sortedSeriesIds.map((seriesId) => (
-                                    <td key={seriesId}>{pickMap[seriesId] || ""}</td>
+                                {sortedSeries.map((s) => (
+                                    <td key={s.id}>{formatPick(pickMap[String(s.id)])}</td>
                                 ))}
                             </tr>
                         );
