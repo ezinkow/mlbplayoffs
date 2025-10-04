@@ -339,6 +339,12 @@ export default function PicksRound() {
                                             <option
                                                 key='p10'
                                                 value='10'>10</option>
+                                            <option
+                                                key='p11'
+                                                value='11'>11</option>
+                                            <option
+                                                key='p12'
+                                                value='12'>12</option>
                                         </select>
                                     </td>
                                     <td>
