@@ -49,7 +49,7 @@ export default function PicksDisplay() {
   useEffect(() => {
     const fetchSeries = async () => {
       try {
-        const res = await axios.get("/api/series/y");
+        const res = await axios.get("/api/series");
         const sorted = [...res.data].sort((a, b) => Number(a.id) - Number(b.id));
         setSeries(sorted);
         console.log("Fetched series:", sorted.map((s) => s.id));
